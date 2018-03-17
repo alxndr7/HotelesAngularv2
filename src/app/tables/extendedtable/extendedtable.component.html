@@ -1,0 +1,261 @@
+<div class="main-content">
+    <div class="container-fluid">
+
+        <button class="btn btn-primary btn-raised btn-round hidden" data-toggle="modal" data-target="#myModalEditar" #modaleditarhotel>
+            Editar Hotel
+        </button>
+        <button class="btn btn-primary btn-raised btn-round hidden" data-toggle="modal" data-target="#myModalDistribucion" ##modalVerDistribucion>
+            Distribucion Hotel
+        </button>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-icon" data-background-color="blue">
+                        <i class="material-icons">assignment</i>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="card-title">Listado de Hoteles Transaltisa</h4>
+                        <button class="btn btn-primary btn-raised btn-round" data-toggle="modal" data-target="#myModal">
+                        Nuevo Hotel
+                    </button>
+                        <div class="table-responsive">
+                            <table class="table">
+                                    <thead>
+                                        <tr>
+                                          <th class="text-center">{{ tableData1.headerRow[0] }}</th>
+                                          <th>{{ tableData1.headerRow[1] }}</th>
+                                          <th>{{ tableData1.headerRow[2] }}</th>
+                                          <th>{{ tableData1.headerRow[3] }}</th>
+                                            <th>{{ tableData1.headerRow[4] }}</th>
+                                          <th class="text-right">{{ tableData1.headerRow[5] }}</th>
+                                          <th class="text-right">{{ tableData1.headerRow[6] }}</th>
+                                        </tr>
+                                    </thead>
+                                  <tbody>
+                                      <tr *ngFor="let row of tableData1.dataRows">
+                                          <td class="text-center">{{row.hotelId}}</td>
+                                          <td>{{row.hotelNombre}}</td>
+                                          <td>{{row.hotelNumHab}}</td>
+                                          <td>{{row.pisos}}</td>
+                                          <td>{{row.flota}}</td>
+                                          <td class="td-actions text-right" title="Ver Distribución de Pisos">
+                                              <button type="button" class="btn btn-info}">Pisos&nbsp;
+                                                  <i class="material-icons">location_city</i>&nbsp;{{row.pisos}}
+                                              </button>
+                                              <button type="button" class="btn btn-success">
+                                                  <i class="material-icons" (click)="get_hotel_por_id(row.hotelId)">edit</i>
+                                              </button>
+                                              <button type="button" class="btn btn-danger">
+                                                  <i class="material-icons" (click)="delete_hotel(row.hotelId, row.hotelNombre)">close</i>
+                                              </button>
+                                          </td>
+                                      </tr>
+                                  </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Classic Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="material-icons">clear</i>
+                    </button>
+                    <h4 class="modal-title">Nuevo Hotel</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-content">
+                            <h4 class="card-title">Hotel:</h4>
+                            <form class="form-horizontal">
+                                <div class="row">
+                                    <label class="col-md-2 label-on-left">Nombre</label>
+                                    <div class="col-md-10">
+                                        <div class="form-group label-floating is-empty">
+                                            <label class="control-label"></label>
+                                            <input type="text" name="nombre" class="form-control" [(ngModel)]="this.objhotel.hotelNombre"
+                                                   #nombre="ngModel">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 label-on-left">Habitaciones</label>
+                                    <div class="col-md-2">
+                                        <div class="form-group label-floating is-empty">
+                                            <label class="control-label"></label>
+                                            <input type="number" name="numHab" class="form-control" [(ngModel)]="this.objhotel.hotelNumHab"
+                                                   #numHab="ngModel">
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2 label-on-left">Pisos</label>
+                                    <div class="col-md-2">
+                                        <div class="form-group label-floating is-empty">
+                                            <label class="control-label"></label>
+                                            <input type="number" name="numHab" class="form-control" [(ngModel)]="this.objhotel.pisos"
+                                                   #numHab="ngModel">
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2 label-on-left">Flota</label>
+                                    <div class="col-md-2">
+                                        <div class="form-group label-floating is-empty">
+                                            <label class="control-label"></label>
+                                            <select name="flota" class="form-control" [(ngModel)]="this.objhotel.flota">
+                                                <option value="0">Elegir Flota</option>
+                                                <option value="Blanca">Blanca</option>
+                                                <option value="Gris">Gris</option>
+                                                <option value="Azul">Azul</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-simple" (click)="insertar_hotel()">Guardar</button>
+                    <button type="button" class="btn btn-danger btn-simple" data-dismiss="modal" #closeAddExpenseModal>Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  End Modal -->
+
+    <!-- EDITAR HOTEL -->
+    <div class="modal fade" id="myModalEditar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="material-icons">clear</i>
+                    </button>
+                    <h4 class="modal-title">Editar Hotel</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-content">
+                            <h4 class="card-title">Hotel:</h4>
+                            <form class="form-horizontal">
+                                <div class="row">
+                                    <label class="col-md-3 label-on-left">Nombre</label>
+                                    <div class="col-md-9">
+                                        <div class="form-group label-floating is-empty">
+                                            <label class="control-label"></label>
+                                            <input type="text" name="nombre" class="form-control" [(ngModel)]="this.objhoteleditar.hotelNombre"
+                                                   #nombre="ngModel">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 label-on-left">Habitaciones</label>
+                                    <div class="col-md-2">
+                                        <div class="form-group label-floating is-empty">
+                                            <label class="control-label"></label>
+                                            <input type="number" name="numHab" class="form-control" [(ngModel)]="this.objhoteleditar.hotelNumHab"
+                                                   #numHab="ngModel">
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2 label-on-left">Pisos</label>
+                                    <div class="col-md-2">
+                                        <div class="form-group label-floating is-empty">
+                                            <label class="control-label"></label>
+                                            <input type="number" name="pisos" class="form-control" [(ngModel)]="this.objhoteleditar.pisos">
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2 label-on-left">Flota</label>
+                                    <div class="col-md-2">
+                                        <div class="form-group label-floating is-empty">
+                                            <label class="control-label"></label>
+                                            <select name="flota" class="form-control" [(ngModel)]="this.objhoteleditar.flota">
+                                                <option value="0">Elegir Flota</option>
+                                                <option value="Blanca">Blanca</option>
+                                                <option value="Gris">Gris</option>
+                                                <option value="Azul">Azul</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-simple" (click)="update_hotel()">Editar</button>
+                    <button type="button" class="btn btn-danger btn-simple" data-dismiss="modal" #closeeditmodal>Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  Editar Hotel -->
+
+    <!-- VER DISTRIBUCION HOTEL -->
+    <div class="modal fade" id="myModalEditar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="material-icons">clear</i>
+                    </button>
+                    <h4 class="modal-title">Editar Hotel</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-content">
+                            <h4 class="card-title">Hotel:</h4>
+                            <form class="form-horizontal">
+                                <div class="row">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-center">{{ tableData1.headerRow[0] }}</th>
+                                            <th>{{ tableData1.headerRow[1] }}</th>
+                                            <th>{{ tableData1.headerRow[2] }}</th>
+                                            <th>{{ tableData1.headerRow[3] }}</th>
+                                            <th>{{ tableData1.headerRow[4] }}</th>
+                                            <th class="text-right">{{ tableData1.headerRow[5] }}</th>
+                                            <th class="text-right">{{ tableData1.headerRow[6] }}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr *ngFor="let row of tableData1.dataRows">
+                                            <td class="text-center">{{row.hotelId}}</td>
+                                            <td>{{row.hotelNombre}}</td>
+                                            <td>{{row.hotelNumHab}}</td>
+                                            <td>{{row.pisos}}</td>
+                                            <td>{{row.flota}}</td>
+                                            <td class="td-actions text-right" title="Ver Distribución de Pisos">
+                                                <button type="button" class="btn btn-info}" (click)="get_pisos_hotel(row.hotelId)">Pisos&nbsp;
+                                                    <i class="material-icons">location_city</i>&nbsp;{{row.pisos}}
+                                                </button>
+                                                <button type="button" class="btn btn-success">
+                                                    <i class="material-icons" (click)="get_hotel_por_id(row.hotelId)">edit</i>
+                                                </button>
+                                                <button type="button" class="btn btn-danger">
+                                                    <i class="material-icons" (click)="delete_hotel(row.hotelId, row.hotelNombre)">close</i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-simple" (click)="update_hotel()">Editar</button>
+                    <button type="button" class="btn btn-danger btn-simple" data-dismiss="modal" #closeeditmodal>Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  FIN VER DISTRIBUCION Hotel -->
+
+
+</div>
