@@ -3,6 +3,7 @@ import {Config} from '../config';
 import {HttpService} from './http.service';
 import {SessionStorageService} from 'ngx-webstorage';
 import {MHotel} from '../models/mHotel.model';
+import {TPisosHotel} from '../models/tPisosHotel.model';
 
 @Injectable()
 export class HotelesService {
@@ -35,6 +36,18 @@ export class HotelesService {
 
         return this._http.post_prueba(url, body);
     }
+
+    public insertPiso(piso: TPisosHotel) {
+        const url = `${this.apiBaseURL}/insertPisoHotel`;
+        const urlSearchParams = new URLSearchParams();
+        urlSearchParams.append('hotelId', String (piso.hotelId));
+        urlSearchParams.append('piso', String (piso.piso));
+        urlSearchParams.append('numHabPiso', String(piso.numHabPiso));
+        const body = urlSearchParams.toString();
+
+        return this._http.post_prueba(url, body);
+    }
+
 
     public updateHotel(hotel: MHotel) {
         const url = `${this.apiBaseURL}/updateHotel`;
