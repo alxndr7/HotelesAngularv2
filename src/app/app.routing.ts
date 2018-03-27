@@ -18,6 +18,18 @@ export const AppRoutes: Routes = [
                 path: 'auth',
                 loadChildren: './tables/tables.module#TablesModule'
             },
+            {
+                path: 'auth',
+                loadChildren: './relevo/relevo.module#RelevoModule'
+            },
+            {
+                path: 'auth',
+                loadChildren: './asignacion/asignacion.module#AsignacionModule'
+            },
+            {
+                path: 'auth',
+                loadChildren: './reportes/reportes.module#ReportesModule'
+            },
         ]
     },
     {

@@ -39,8 +39,8 @@
                                           <td>{{row.pisos}}</td>
                                           <td>{{row.flota}}</td>
                                           <td class="td-actions text-right" title="Ver Distribución de Pisos">
-                                              <button type="button" class="btn btn-info}" (click)="get_pisos_hotel(row.hotelId)">Pisos&nbsp;
-                                                  <i class="material-icons">location_city</i>&nbsp;{{row.pisos}}
+                                              <button type="button" class="btn btn-info}" (click)="get_detalle_hotel(row.hotelId)">Pisos&nbsp;
+                                                  <i class="material-icons">location_city</i>&nbsp;
                                               </button>
                                               <button type="button" class="btn btn-success">
                                                   <i class="material-icons" (click)="get_hotel_por_id(row.hotelId)">edit</i>
@@ -207,10 +207,37 @@
                 <div class="modal-body">
                     <div class="card">
                         <div class="card-content">
-                            <h4 class="card-title">{{this.objHotelPisos.hotelNombre }}</h4>
+                            <h4 class="card-title" style="text-align: center">{{ this.objHotelDet.hotelNombre }}</h4>
                             <form class="form-horizontal">
-                                <div class="row">
-                                    <table class="table">
+                                <div class="row" *ngFor="let objPiso of this.objHotelDet.pisosHotel">
+                                    <div class="col-md-12 card-header">
+                                        <h4 class="card-title"> Piso {{objPiso.piso}} :</h4>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-info" style="margin-right: 1px;margin-left: 1px; margin-top: 1px; margin-bottom: 1px"
+                                                    *ngFor="let objHab of objPiso.habHotel">
+                                                {{ objHab.detNumHab }} / {{ objHab.tipoHab }}
+                                            </button>
+                                        </div>
+                                           <!-- <h4 class="card-title">Pick your Style</h4>-->
+                                            <!--<button class="btn btn-primary btn-round" *ngFor="let objHab of objPiso.habHotel">{{ objHab.detNumHab }}</button>-->
+                                    </div>
+
+
+                                <!--    <table class="table" >
+
+                                        <tr *ngFor="let objPiso of this.objHotelDet.pisosHotel">
+                                            <th>Piso {{objPiso.piso}} :</th>
+                                            <th class="text-center" *ngFor="let objHab of objPiso.habHotel">
+                                                    <button class="btn btn-primary btn-round">{{ objHab.detNumHab }}</button>
+                                            </th>
+                                        </tr>
+                                    </table>-->
+                                  <!--  <label class="control-label" *ngFor="let objPiso of this.objHotelDet.pisosHotel">
+                                                {{objPiso.piso}}
+                                    </label>-->
+                               <!--     <table class="table">
                                         <thead>
                                         <tr>
                                             <th class="text-center">{{ tableData2.headerRow[0] }}</th>
@@ -224,7 +251,7 @@
                                             <td><input type="number" name="pisos" [(ngModel)]="row.numHabPiso"></td>
                                         </tr>
                                         </tbody>
-                                    </table>
+                                    </table>-->
                                 </div>
                             </form>
                         </div>

@@ -4,6 +4,7 @@ import {MHotel} from '../../common/models/mHotel.model';
 import { ViewChild, ElementRef} from '@angular/core';
 import swal from 'sweetalert2';
 import {TPisosHotel} from '../../common/models/tPisosHotel.model';
+import {MHotelMap} from '../../common/models/mHotelMap.model';
 
 declare var $: any;
 declare interface TableData {
@@ -29,20 +30,20 @@ export class ExtendedTableComponent implements OnInit {
     listHoteles: MHotel[] = [];
     objhotel: MHotel;
     objhoteleditar: MHotel;
-    objHotelPisos: MHotel;
-    listPisosHotel: TPisosHotel[] = [];
+    objHotelDet: MHotelMap;
 
 
     constructor(public _hotelesService: HotelesService) {
         this.objhotel = new MHotel();
         this.objhoteleditar = new MHotel();
+        this.objHotelDet = new MHotelMap();
     }
 
     ngOnInit() {
-        this.tableData2 = {
+       /* this.tableData2 = {
             headerRow: [ '# Piso', 'Num Habitaciones'],
             dataRows:  this.listPisosHotel.filter(pisoItem => pisoItem)
-        };
+        };*/
         this.tableData1 = {
             headerRow: [ '#', 'Nombre', 'Habitaciones','Pisos', 'Flota', 'Acciones'],
             dataRows:  this.listHoteles.filter(hotelItem => hotelItem)
@@ -130,17 +131,21 @@ export class ExtendedTableComponent implements OnInit {
         );
     }
 
-    get_pisos_hotel(id_hotel) {
-        this.listPisosHotel = [];
-        this._hotelesService.getHotelPorId(id_hotel).subscribe(
+    get_detalle_hotel(id_hotel) {
+        console.log(id_hotel);
+        this._hotelesService.getHotelDetPorId(id_hotel).subscribe(
             (data) => {
-                this.objHotelPisos = data[0];
+                console.log(data);
+                this.objHotelDet = data[0];
+                this.modalVerDistribucion.nativeElement.click();
+
+               /*
                 console.log(data[0].pisos);
                 for (var _i = 0; _i < data[0].pisos; _i++) {
                    this.listPisosHotel.push(new TPisosHotel(1, data[0].hotelId,_i + 1,0));
                 }
                 this.tableData2.dataRows  = this.listPisosHotel;
-                this.modalVerDistribucion.nativeElement.click();
+                this.modalVerDistribucion.nativeElement.click();*/
             },
             err => {
                 console.error(err);
@@ -149,7 +154,7 @@ export class ExtendedTableComponent implements OnInit {
     }
 
     guardar_pisos_hotel(){
-        console.log(this.listPisosHotel);
+ /*       console.log(this.listPisosHotel);
 
         for (let piso of this.listPisosHotel) {
             this._hotelesService.insertPiso(piso).subscribe(
@@ -162,7 +167,7 @@ export class ExtendedTableComponent implements OnInit {
             );
         }
         this.closepisosmodal.nativeElement.click();
-        this.get_all_hoteles();
+        this.get_all_hoteles();*/
     }
 
     get_hotel_por_id(id_hotel) {

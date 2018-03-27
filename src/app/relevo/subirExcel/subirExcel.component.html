@@ -1,0 +1,69 @@
+
+<div class="main-content">
+    <div class="container-fluid">
+        <input type="file" (change)="onFileChange($event)" multiple="false" />
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-icon" data-background-color="blue">
+                        <i class="material-icons">assignment</i>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="card-title">Listado de Personal de Relevo</h4>
+                        <button class="btn btn-primary btn-raised btn-round" (click)="subir_personal_relevo()">
+                            Guardar en Base de Datos
+                        </button>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">{{ tableData1.headerRow[0] }}</th>
+                                    <th>{{ tableData1.headerRow[1] }}</th>
+                                    <th>{{ tableData1.headerRow[2] }}</th>
+                                    <th>{{ tableData1.headerRow[3] }}</th>
+                                    <th>{{ tableData1.headerRow[4] }}</th>
+                                    <th>{{ tableData1.headerRow[5] }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let row of tableData1.dataRows">
+                                    <td class="text-center">{{row.dni}}</td>
+                                    <td>{{row.nombreCompleto}}</td>
+                                    <td>{{row.puesto}}</td>
+                                    <td>{{row.flota}}</td>
+                                    <td>{{row.fechaIngreso}}</td>
+                                    <td>{{row.fechaSalida}}</td>
+                                    <!--     <td class="td-actions text-right" title="Ver Distribución de Pisos">
+                                             <button type="button" class="btn btn-info}" (click)="get_pisos_hotel(row.hotelId)">Pisos&nbsp;
+                                                 <i class="material-icons">location_city</i>&nbsp;{{row.pisos}}
+                                             </button>
+                                             <button type="button" class="btn btn-success">
+                                                 <i class="material-icons" (click)="get_hotel_por_id(row.hotelId)">edit</i>
+                                             </button>
+                                             <button type="button" class="btn btn-danger">
+                                                 <i class="material-icons" (click)="delete_hotel(row.hotelId, row.hotelNombre)">close</i>
+                                             </button>
+                                         </td>-->
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   <!-- <button (click)="export()">Subir Datos!</button>-->
+</div>
+<!--<table class="sjs-table">
+    <tr *ngFor="let row of data">
+        <td *ngFor="let val of row">
+            {{val}}
+        </td>
+    </tr>
+</table>-->
+
+
+
+

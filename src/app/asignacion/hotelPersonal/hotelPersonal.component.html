@@ -1,0 +1,187 @@
+
+<div class="main-content">
+    <div class="container-fluid">
+        <button class="btn btn-primary btn-raised btn-round hidden" data-toggle="modal" data-target="#myModalDistribucion" #modalverdisponibilidad>
+            Distribucion Hotel
+        </button>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-icon" data-background-color="blue">
+                        <i class="material-icons">assignment</i>
+                    </div>
+                    <div class="card-content">
+                        <h4 class="card-title">Asignación: Habitación - Personal</h4>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th class="text-center">{{ tableData1.headerRow[0] }}</th>
+                                    <th>{{ tableData1.headerRow[1] }}</th>
+                                    <th>{{ tableData1.headerRow[2] }}</th>
+                                    <th>{{ tableData1.headerRow[3] }}</th>
+                                    <th>{{ tableData1.headerRow[4] }}</th>
+                                    <th>{{ tableData1.headerRow[5] }}</th>
+                                    <th>{{ tableData1.headerRow[6] }}</th>
+                                    <th>{{ tableData1.headerRow[7] }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let row of tableData1.dataRows">
+                                    <td class="text-center">{{row.dni}}</td>
+                                    <td>{{row.nombreCompleto}}</td>
+                                    <td>{{row.puesto}}</td>
+                                    <td>{{row.flota}}</td>
+                                    <td>{{row.fechaIngreso | date: 'dd/MM/yyyy'}} </td>
+                                    <td>{{row.fechaSalida | date: 'dd/MM/yyyy'}}</td>
+                                    <td>
+                                        <ng-template *ngIf="row.habDet === null;else other_content">
+                                           NO
+                                        </ng-template>
+                                        <ng-template #other_content>  {{row.habDet.detNumHab}}</ng-template>
+                                    </td>
+                                    <td class="td-actions text-right" title="Ver Distribución de Pisos">
+                                        <button type="button" class="btn btn-info btn-round" (click)="ver_disponibilidad(row)">Asignar&nbsp;
+                                            <i class="material-icons">assignment_turned_in</i>&nbsp;
+                                        </button>
+                                    </td>
+                                    <!--     <td class="td-actions text-right" title="Ver Distribución de Pisos">
+                                             <button type="button" class="btn btn-info}" (click)="get_pisos_hotel(row.hotelId)">Pisos&nbsp;
+                                                 <i class="material-icons">location_city</i>&nbsp;{{row.pisos}}
+                                             </button>
+                                             <button type="button" class="btn btn-success">
+                                                 <i class="material-icons" (click)="get_hotel_por_id(row.hotelId)">edit</i>
+                                             </button>
+                                             <button type="button" class="btn btn-danger">
+                                                 <i class="material-icons" (click)="delete_hotel(row.hotelId, row.hotelNombre)">close</i>
+                                             </button>
+                                         </td>-->
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- VER DISTRIBUCION HOTEL -->
+    <div class="modal fade" id="myModalDistribucion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="material-icons">clear</i>
+                    </button>
+                    <h4 class="modal-title">Asignar Habitación</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <label class="col-md-2 label-on-left">Nombre:</label>
+                        <div class="col-md-5"> {{this.personalSelect.nombreCompleto}}
+                        </div>
+                        <label class="col-md-2 label-on-left">Flota:</label>
+                        <div class="col-md-3"> {{this.personalSelect.flota}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-2 label-on-left">Hotel: </label>
+                        <div class="col-md-5">
+                            {{this.hotelSelect}}
+                                   <!-- {{this.personalSelect.habDet.hotel}}-->
+                        </div>
+                        <label class="col-md-2 label-on-left">Habitación: </label>
+                        <div class="col-md-3">
+                            {{this.habitacionHotel}}
+                                   <!-- {{this.personalSelect.habDet.detNumHab}}-->
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="this.showAsignar">
+                        <div class="col-md-7">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default"  style="margin-bottom: 2px;margin-top: 2px;
+                                                        padding-bottom: 0px;padding-top: 0px">Simple</button>
+                                <button type="button" class="btn btn-primary"  style="margin-bottom: 2px;margin-top: 2px;
+                                                        padding-bottom: 0px;padding-top: 0px">Doble</button>
+                                <button type="button" class="btn btn-info"  style="margin-bottom: 2px;margin-top: 2px;
+                                                        padding-bottom: 0px;padding-top: 0px">Triple</button>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group" style="margin-top: 0px">
+                                <select name="flota" class="form-control" (change)="onChange($event.target.value)">
+                                    <option value="0" selected>Seleccione Hotel</option>
+                                    <option *ngFor="let objHotel of this.hotelesPorFlota" value="{{objHotel.hotelId}}" >{{objHotel.hotelNombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <ng-container *ngIf="this.showAsignar">
+                        <ng-container *ngFor="let objPiso of this.objHotelDet.pisosHotel">
+                            <div class="col-md-12 card-header nav-center">
+                                <h4 class="card-title"> <ins><strong>Piso {{objPiso.piso}}</strong></ins></h4>
+                            </div>
+                            <div class="card" style="margin-top: 0px;margin-bottom: 0px;border-color: blue">
+                                <div class="card-content">
+                                    <div class="row" >
+                                        <ul class="nav nav-pills nav-pills-warning nav-pills-icons" role="tablist" style="margin-top: 0px">
+
+
+                                            <ng-container *ngFor="let objHab of objPiso.habHotel">
+                                                <li *ngIf="objHab.estadoOcupa == 'V'">
+                                                    <ng-container *ngIf="objHab.tipoHab == 'S'">
+                                                        <a class="btn btn-default" (click)="set_id_hab_hot(objHab.habHotId)" data-toggle="tab" style="margin-bottom: 2px;margin-top: 2px;
+                                                        padding-bottom: 0px;padding-top: 0px">
+                                                            {{ objHab.detNumHab }} / {{ objHab.tipoHab }}
+                                                        </a>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="objHab.tipoHab == 'D'">
+                                                        <a class="btn btn-primary" (click)="set_id_hab_hot(objHab.habHotId)" data-toggle="tab" style="margin-bottom: 2px;margin-top: 2px;
+                                                        padding-bottom: 0px;padding-top: 0px">
+                                                            {{ objHab.detNumHab }} / {{ objHab.tipoHab }}
+                                                        </a>
+                                                    </ng-container>
+                                                    <ng-container *ngIf="objHab.tipoHab == 'T'">
+                                                        <a class="btn btn-info" (click)="set_id_hab_hot(objHab.habHotId)" data-toggle="tab" style="margin-bottom: 2px;margin-top: 2px;
+                                                        padding-bottom: 0px;padding-top: 0px">
+                                                            {{ objHab.detNumHab }} / {{ objHab.tipoHab }}
+                                                        </a>
+                                                    </ng-container>
+
+                                                </li>
+                                            </ng-container>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-simple" (click)="asignar_habitacion_personal()">ASIGNAR</button>
+                    <button type="button" class="btn btn-danger btn-simple" data-dismiss="modal" #closeModalDispo>Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  FIN VER DISTRIBUCION Hotel -->
+
+
+    <!-- <button (click)="export()">Subir Datos!</button>-->
+</div>
+<!--<table class="sjs-table">
+    <tr *ngFor="let row of data">
+        <td *ngFor="let val of row">
+            {{val}}
+        </td>
+    </tr>
+</table>-->
+
+
+
+

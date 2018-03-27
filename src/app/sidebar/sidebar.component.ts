@@ -25,9 +25,20 @@ export interface ChildrenItems {
 export const ROUTES: RouteInfo[] = [
     { path: '/auth/dashboard', title: 'Principal',  type: 'link', icontype: 'dashboard'},
     { path: '/auth/hoteles', title: 'Mantenimiento Hoteles',  type: 'link',  icontype: 'business'},
-    { path: 'user-profile', title: 'Relevo',   type: 'link', icontype: 'swap_horiz' },
-    { path: 'table-list', title: 'Asignación',   type: 'link', icontype: 'assignment'},
-    { path: 'icons', title: 'Reportes',   type: 'link', icontype: 'web' },
+    { path: '/auth/relevo', title: 'Relevo',   type: 'link', icontype: 'swap_horiz' },
+    { path: '/auth/asignacion', title: 'Asignación',   type: 'link', icontype: 'assignment'},
+  /*  { path: '/auth/reporte', title: 'Reportessss',   type: 'link', icontype: 'web' },*/
+    {
+        path: '/auth',
+        title: 'Reportes',
+        type: 'sub',
+        icontype: 'web',
+        collapse: 'Reportes',
+        children: [
+            {path: 'reporte', title: 'Reporte Diario Relevo', ab:'RD'},
+        ]
+    },
+
     /* { path: 'maps', title: 'Maps',  icon:'location_on', class: '' },
      { path: 'notifications', title: 'Notifications',  icon:'notifications', class: '' },
      { path: 'upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },*/
