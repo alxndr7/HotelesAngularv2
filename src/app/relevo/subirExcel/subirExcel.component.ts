@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HotelesService} from '../../common/_services/hoteles.service';
+import {  BlockUI, NgBlockUI } from 'ng-block-ui';
 //import * as XLSX from 'ts-xlsx';
 import * as XLSX from 'xlsx';
 import {TPersonalRelevo} from '../../common/models/tPersonalRelevo.model';
@@ -19,6 +20,7 @@ type AOA = any[][];
 })
 
 export class SubirExcelComponent implements OnInit {
+    @BlockUI() blockUI: NgBlockUI;
     public tableData1: TableData;
     data: AOA = [ [1, 2], [3, 4] ];
     personalRelevo:  TPersonalRelevo[] = [];
@@ -111,7 +113,8 @@ export class SubirExcelComponent implements OnInit {
         });*/
     }
 
-    subir_personal_relevo(){
+    subir_personal_relevo() {
+        this.blockUI.start('Cargando...');
         console.log(this.personalRelevo);
         var cont = 1;
         for (let personal of this.personalRelevo) {
@@ -119,8 +122,10 @@ export class SubirExcelComponent implements OnInit {
                 (data) => {
                     cont++;
                     console.log(data);
+                    this.blockUI.stop();
                 },
                 err => {
+                    this.blockUI.stop();
                     console.error(err);
                 }
             );

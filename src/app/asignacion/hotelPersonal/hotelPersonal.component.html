@@ -11,8 +11,12 @@
                     <div class="card-header card-header-icon" data-background-color="blue">
                         <i class="material-icons">assignment</i>
                     </div>
+
                     <div class="card-content">
                         <h4 class="card-title">Asignación: Habitación - Personal</h4>
+                        <button (click)="modal_nuevo_ingreso()" class="btn btn-primary btn-raised btn-round" data-toggle="modal" data-target="#myModalAddPersonal">
+                            Agregar Personal
+                        </button>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>
@@ -171,6 +175,91 @@
     </div>
     <!--  FIN VER DISTRIBUCION Hotel -->
 
+
+    <div class="modal fade" id="myModalAddPersonal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        <i class="material-icons">clear</i>
+                    </button>
+                    <h4 class="modal-title">Agregar Personal a Asignación</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-content">
+                            <form class="form-horizontal">
+                                <div class="row">
+                                    <label class="col-md-2 label-on-left">Nombre</label>
+                                    <div class="col-md-10">
+                                        <div class="form-group label-floating is-empty">
+                                            <label class="control-label"></label>
+                                            <input type="text" name="nombre" class="form-control" [(ngModel)]="this.nuevoPersonalR.nombreCompleto"
+                                                   #nombre="ngModel">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 label-on-left">Flota</label>
+                                    <div class="col-md-2">
+                                        <div class="form-group label-floating is-empty">
+                                            <label class="control-label"></label>
+                                            <select name="flota" class="form-control" [(ngModel)]="this.nuevoPersonalR.flota">
+                                                <option value="0">Elegir Flota</option>
+                                                <option value="Blanca">Blanca</option>
+                                                <option value="Gris">Gris</option>
+                                                <option value="Azul">Azul</option>
+                                                <option value="Terceros">Terceros</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <label class="col-md-1 label-on-left">DNI</label>
+                                    <div class="col-md-3">
+                                        <div class="form-group label-floating is-empty">
+                                            <label class="control-label"></label>
+                                            <input type="text" name="numHab" class="form-control" [(ngModel)]="this.nuevoPersonalR.dni"
+                                                   #numHab="ngModel">
+                                        </div>
+                                    </div>
+                                    <label class="col-md-1 label-on-left">Puesto</label>
+                                    <div class="col-md-3">
+                                        <div class="form-group label-floating is-empty">
+                                            <label class="control-label"></label>
+                                            <input type="Text" name="numHab" class="form-control" [(ngModel)]="this.nuevoPersonalR.puesto"
+                                                   #numHab="ngModel">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label class="col-md-2 label-on-left">Inicio:</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group label-floating is-empty">
+                                            <label class="control-label"></label>
+                                            <input type="date" name="numHab" class="form-control" [(ngModel)]="this.nuevoPersonalR.fechaIngreso"
+                                                   #numHab="ngModel">
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2 label-on-left">Fin:</label>
+                                    <div class="col-md-4">
+                                        <div class="form-group label-floating is-empty">
+                                            <label class="control-label"></label>
+                                            <input type="date" name="numHab" class="form-control" [(ngModel)]="this.nuevoPersonalR.fechaSalida"
+                                                   #numHab="ngModel">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-simple" (click)="guardar_nueva_asignacion_personal()">Guardar</button>
+                    <button type="button" class="btn btn-danger btn-simple" data-dismiss="modal" #closeNuevoPersonalAsign>Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- <button (click)="export()">Subir Datos!</button>-->
 </div>

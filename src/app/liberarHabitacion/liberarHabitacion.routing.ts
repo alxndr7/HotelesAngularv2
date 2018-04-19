@@ -1,12 +1,13 @@
 import { Routes } from '@angular/router';
-import {ReporteDiarioRelevoComponent} from './reporteDiarioRelevo/reporteDiarioRelevo.component';
+import {DesocuparHabitacionComponent} from './desocuparHabitacion/desocuparHabitacion.component';
 
-export const ReportesRoutes: Routes = [
+
+export const LiberarHabitacionRoutes: Routes = [
    {
     path: '',
     children: [ {
-      path: 'reporte',
-      component: ReporteDiarioRelevoComponent
+      path: 'liberarHabitacion',
+      component: DesocuparHabitacionComponent
     }]
     }
 ];

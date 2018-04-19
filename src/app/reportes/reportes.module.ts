@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../app.module';
 import { ReportesRoutes } from './reportes.routing';
 import { ReporteDiarioRelevoComponent } from './reporteDiarioRelevo/reporteDiarioRelevo.component';
+import {FilterPipe} from './utils/FilterPipe';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { ReporteDiarioRelevoComponent } from './reporteDiarioRelevo/reporteDiari
     MaterialModule
   ],
   declarations: [
+      FilterPipe,
       ReporteDiarioRelevoComponent
   ]
 })

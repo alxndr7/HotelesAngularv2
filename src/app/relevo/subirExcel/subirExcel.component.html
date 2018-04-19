@@ -1,7 +1,7 @@
 
 <div class="main-content">
     <div class="container-fluid">
-        <input type="file" (change)="onFileChange($event)" multiple="false" />
+
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -13,6 +13,10 @@
                         <button class="btn btn-primary btn-raised btn-round" (click)="subir_personal_relevo()">
                             Guardar en Base de Datos
                         </button>
+                        <button class="btn btn-success btn-raised btn-round">
+                            <input type="file" (change)="onFileChange($event)" multiple="false"/>
+                        </button>
+
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>

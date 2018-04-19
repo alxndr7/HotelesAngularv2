@@ -4,6 +4,7 @@ import {TPersonalRelevo} from '../../common/models/tPersonalRelevo.model';
 import {MHotel} from '../../common/models/mHotel.model';
 import {MHotelMap} from '../../common/models/mHotelMap.model';
 import {THabitacionHotelDet} from '../../common/models/tHabitacionHotelDet.model';
+import {  BlockUI, NgBlockUI } from 'ng-block-ui';
 declare var $: any;
 declare interface TableData {
     headerRow: string[];
@@ -18,10 +19,13 @@ declare interface TableData {
 })
 
 export class HotelPersonalComponent implements OnInit {
+    @BlockUI() blockUI: NgBlockUI;
     public tableData1: TableData;
     personalRelevo:  TPersonalRelevo[] = [];
+    nuevoPersonalR: TPersonalRelevo;
     @ViewChild('modalverdisponibilidad') modalverdisponibilidad: ElementRef;
     @ViewChild('closeModalDispo') closemodaldispo: ElementRef;
+    @ViewChild('closeNuevoPersonalAsign') closeNuevoPersonalAsign: ElementRef;
 
     flota_pers: string;
     hotelesPorFlota: MHotel[];
@@ -36,6 +40,7 @@ export class HotelPersonalComponent implements OnInit {
 
     constructor(public _hotelesService: HotelesService) {
         this.objHotelDet = new MHotelMap();
+        this.nuevoPersonalR = new TPersonalRelevo();
         this.hotelSelect = '';
         this.habitacionHotel = '';
         this.idHabHot = 0;
@@ -56,13 +61,16 @@ export class HotelPersonalComponent implements OnInit {
     }
 
     get_relevo_personal() {
+        this.blockUI.start('Cargando...');
         this._hotelesService.getPersonalRelevo().subscribe(
             (data) => {
                 this.personalRelevo = data;
                 this.tableData1.dataRows = this.personalRelevo;
+                this.blockUI.stop();
             },
             err => {
                 console.error(err);
+                this.blockUI.stop();
             }
         );
     }
@@ -90,12 +98,15 @@ export class HotelPersonalComponent implements OnInit {
             console.log('true');
         }
         else {
+            this.blockUI.start('Cargando...');
             this.showAsignar = true;
             this._hotelesService.getHotelesPorFlota(personal.flota).subscribe(
                 (data) => {
                     this.hotelesPorFlota = data;
                     console.log(data);
+                    this.blockUI.stop();
                 }, err => {
+                    this.blockUI.stop();
                     console.error(err);
                 }
             );
@@ -105,14 +116,36 @@ export class HotelPersonalComponent implements OnInit {
         this.modalverdisponibilidad.nativeElement.click();
     }
 
+    modal_nuevo_ingreso() {
+        this.nuevoPersonalR = new TPersonalRelevo();
+    }
+
+    guardar_nueva_asignacion_personal() {
+        this.blockUI.start('Cargando...');
+        this._hotelesService.insertNuevoPersonalRelevo(this.nuevoPersonalR).subscribe(
+            (data) => {
+                console.log(data);
+                this.get_relevo_personal();
+                this.closeNuevoPersonalAsign.nativeElement.click();
+                this.blockUI.stop();
+                },
+            err => {
+                console.error(err);
+                this.blockUI.stop();
+            }
+        );
+    }
+
     onChange(id_hotel) {
         console.log(id_hotel);
-
+        this.blockUI.start('Cargando...');
         this._hotelesService.getHotelDetPorIdDisp(id_hotel).subscribe(
             (data) => {
                 console.log(data);
                 this.objHotelDet = data[0];
+                this.blockUI.stop();
             }, err => {
+                this.blockUI.stop();
                 console.error(err);
             }
         );
@@ -143,13 +176,16 @@ export class HotelPersonalComponent implements OnInit {
     }*/
 
     asignar_habitacion_personal() {
+        this.blockUI.start('Cargando...');
         this._hotelesService.updatePersonalHabitacion(this.idHabHot, this.personalSelect.personalRelevoId).subscribe(
             (data) => {
                 console.log(data);
                 this.get_relevo_personal();
                 this.closemodaldispo.nativeElement.click();
+                this.blockUI.stop();
             }, err => {
                 console.error(err);
+                this.blockUI.stop();
             }
         );
     }

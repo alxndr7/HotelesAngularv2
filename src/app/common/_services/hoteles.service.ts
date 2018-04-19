@@ -5,6 +5,7 @@ import {SessionStorageService} from 'ngx-webstorage';
 import {MHotel} from '../models/mHotel.model';
 import {TPisosHotel} from '../models/tPisosHotel.model';
 import {TPersonalRelevo} from '../models/tPersonalRelevo.model';
+import {VwPersonalHotelModel} from '../models/vwPersonalHotel.model';
 
 @Injectable()
 export class HotelesService {
@@ -21,21 +22,21 @@ export class HotelesService {
         });
     }
 
-    public  getHotelDetPorId(id_hotel){
+    public  getHotelDetPorId(id_hotel) {
         const url = `${this.apiBaseURL}/hotelDetallePorId`;
         return this._http.get2(url, {
             'id': id_hotel
         });
     }
 
-    public  getHotelDetPorIdDisp(id_hotel){
+    public  getHotelDetPorIdDisp(id_hotel) {
         const url = `${this.apiBaseURL}/hotelDetallePorIdDisp`;
         return this._http.get2(url, {
             'id': id_hotel
         });
     }
 
-    public  getHotelesPorFlota(flota){
+    public  getHotelesPorFlota(flota) {
         const url = `${this.apiBaseURL}/hoteles-flota`;
         return this._http.get2(url, {
             'flota': flota
@@ -60,6 +61,7 @@ export class HotelesService {
         return this._http.post_prueba(url, body);
     }
 
+
     public insertPiso(piso: TPisosHotel) {
        /* const url = `${this.apiBaseURL}/insertPisoHotel`;
         const urlSearchParams = new URLSearchParams();
@@ -76,6 +78,59 @@ export class HotelesService {
         return this._http.get_prueba(url);
     }
 
+    public getPersonalRelevoPorHotel(hotelId) {
+        const url = `${this.apiBaseURL}/personal-relevo-hotel`;
+        const urlSearchParams = new URLSearchParams();
+        urlSearchParams.append('hotelId', String (hotelId));
+        const body = urlSearchParams.toString();
+        return this._http.post_prueba(url, body);
+    }
+
+    public getRegistroDiarioHotel(hotelId) {
+        const url = `${this.apiBaseURL}/get-registro-diario-hotel`;
+        const urlSearchParams = new URLSearchParams();
+        urlSearchParams.append('hotelId', String (hotelId));
+        const body = urlSearchParams.toString();
+        return this._http.post_prueba(url, body);
+    }
+
+    public getRegistroDiarioHotelAll() {
+            const url = `${this.apiBaseURL}/get-registro-diario-all`;
+            return this._http.get_prueba(url);
+    }
+
+    public updateReg(idRegDiar, tipo) {
+        var url = '';
+        if (tipo == 1)
+            url = `${this.apiBaseURL}/update-reg1`;
+        if (tipo == 2)
+            url = `${this.apiBaseURL}/update-reg2`;
+        if (tipo == 3)
+            url = `${this.apiBaseURL}/update-reg3`;
+
+        const urlSearchParams = new URLSearchParams();
+        urlSearchParams.append('idRegDiar', String (idRegDiar));
+        const body = urlSearchParams.toString();
+        return this._http.post_prueba(url, body);
+    }
+
+    public getPersonalHotel() {
+        const url = `${this.apiBaseURL}/personal-hotel`;
+        return this._http.get_prueba(url);
+    }
+
+    public desocuparHabitacion(hab_id,id_personal, obs) {
+        console.log(hab_id + ' / ' + id_personal + ' / ' + obs);
+       const url = `${this.apiBaseURL}/desocupar-habitacion`;
+        const urlSearchParams = new URLSearchParams();
+        urlSearchParams.append('habHotId', String(hab_id));
+        urlSearchParams.append('personalRelevoId', String(id_personal));
+        urlSearchParams.append('observacion', obs);
+        const body = urlSearchParams.toString();
+
+        return this._http.post_prueba(url, body);
+    }
+
     public insertPersonalRelevo(personal: TPersonalRelevo) {
         const url = `${this.apiBaseURL}/insertPersonalRelevo`;
         const urlSearchParams = new URLSearchParams();
@@ -90,6 +145,19 @@ export class HotelesService {
         return this._http.post_prueba(url, body);
     }
 
+    public insertNuevoPersonalRelevo(personal: TPersonalRelevo) {
+        const url = `${this.apiBaseURL}/insertNuevoPersonalRelevo`;
+        const urlSearchParams = new URLSearchParams();
+        urlSearchParams.append('dni', personal.dni);
+        urlSearchParams.append('nombreCompleto', personal.nombreCompleto);
+        urlSearchParams.append('puesto', personal.puesto);
+        urlSearchParams.append('flota', personal.flota);
+        urlSearchParams.append('fechaIngreso', personal.fechaIngreso);
+        urlSearchParams.append('fechaSalida', personal.fechaSalida);
+        const body = urlSearchParams.toString();
+
+        return this._http.post_prueba(url, body);
+    }
 
     public updateHotel(hotel: MHotel) {
         const url = `${this.apiBaseURL}/updateHotel`;

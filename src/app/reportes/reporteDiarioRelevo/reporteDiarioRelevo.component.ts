@@ -4,6 +4,7 @@ import {TPersonalRelevo} from '../../common/models/tPersonalRelevo.model';
 import {MHotel} from '../../common/models/mHotel.model';
 import {MHotelMap} from '../../common/models/mHotelMap.model';
 import {THabitacionHotelDet} from '../../common/models/tHabitacionHotelDet.model';
+import {  BlockUI, NgBlockUI } from 'ng-block-ui';
 declare var $: any;
 declare interface TableData {
     headerRow: string[];
@@ -18,10 +19,12 @@ declare interface TableData {
 })
 
 export class ReporteDiarioRelevoComponent implements OnInit {
+    @BlockUI() blockUI: NgBlockUI;
     public tableData1: TableData;
     personalRelevo:  TPersonalRelevo[] = [];
     @ViewChild('modalverdisponibilidad') modalverdisponibilidad: ElementRef;
     @ViewChild('closeModalDispo') closemodaldispo: ElementRef;
+    public searchString: string;
 
     flota_pers: string;
     hotelesPorFlota: MHotel[];
@@ -56,12 +59,15 @@ export class ReporteDiarioRelevoComponent implements OnInit {
     }
 
     get_relevo_personal() {
+        this.blockUI.start('Cargando...');
         this._hotelesService.getPersonalRelevo().subscribe(
             (data) => {
                 this.personalRelevo = data;
                 this.tableData1.dataRows = this.personalRelevo;
+                this.blockUI.stop();
             },
             err => {
+                this.blockUI.stop();
                 console.error(err);
             }
         );
@@ -79,8 +85,7 @@ export class ReporteDiarioRelevoComponent implements OnInit {
         if (this.personalSelect.habDet == null) {
             this.hotelSelect = 'No Asignado';
             this.habitacionHotel = 'No Asignado';
-        }
-        else {
+        } else {
             this.habitacionHotel = this.personalSelect.habDet.detNumHab;
             this.hotelSelect = this.personalSelect.habDet.hotel.hotelNombre;
         }
@@ -88,8 +93,7 @@ export class ReporteDiarioRelevoComponent implements OnInit {
         if (this.personalSelect.habHotId) {
             this.showAsignar = false;
             console.log('true');
-        }
-        else {
+        } else {
             this.showAsignar = true;
             this._hotelesService.getHotelesPorFlota(personal.flota).subscribe(
                 (data) => {
@@ -107,12 +111,14 @@ export class ReporteDiarioRelevoComponent implements OnInit {
 
     onChange(id_hotel) {
         console.log(id_hotel);
-
+        this.blockUI.start('Cargando...');
         this._hotelesService.getHotelDetPorIdDisp(id_hotel).subscribe(
             (data) => {
                 console.log(data);
                 this.objHotelDet = data[0];
+                this.blockUI.stop();
             }, err => {
+                this.blockUI.stop();
                 console.error(err);
             }
         );
@@ -133,15 +139,41 @@ export class ReporteDiarioRelevoComponent implements OnInit {
     }
 
     asignar_habitacion_personal() {
+        this.blockUI.start('Cargando...');
         this._hotelesService.updatePersonalHabitacion(this.idHabHot, this.personalSelect.personalRelevoId).subscribe(
             (data) => {
                 console.log(data);
                 this.get_relevo_personal();
                 this.closemodaldispo.nativeElement.click();
+                this.blockUI.stop();
             }, err => {
+                this.blockUI.stop();
                 console.error(err);
             }
         );
+    }
+
+    ver_personal_por_hotel(val) {
+
+        if(val != 0) {
+            this.blockUI.start('Cargando...');
+            console.log('if ' + val);
+            this._hotelesService.getPersonalRelevoPorHotel(val).subscribe(
+                (data) => {
+                    this.personalRelevo = data;
+                    this.tableData1.dataRows = this.personalRelevo;
+                    this.blockUI.stop();
+                },
+                err => {
+                    this.blockUI.stop();
+                    console.error(err);
+                }
+            );
+        } else {
+            console.log('else' + val);
+            this.get_relevo_personal();
+        }
+
     }
 
 }

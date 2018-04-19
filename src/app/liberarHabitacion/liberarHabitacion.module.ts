@@ -3,20 +3,21 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../app.module';
-import { ReportesRoutes } from './reportes.routing';
-import { ReporteDiarioRelevoComponent } from './reporteDiarioRelevo/reporteDiarioRelevo.component';
+import {LiberarHabitacionRoutes} from './liberarHabitacion.routing';
+import {DesocuparHabitacionComponent} from './desocuparHabitacion/desocuparHabitacion.component';
+
 
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(ReportesRoutes),
+    RouterModule.forChild(LiberarHabitacionRoutes),
     FormsModule,
     MaterialModule
   ],
   declarations: [
-      ReporteDiarioRelevoComponent
+      DesocuparHabitacionComponent
   ]
 })
 
-export class ReportesModule {}
+export class LiberarHabitacionModule {}

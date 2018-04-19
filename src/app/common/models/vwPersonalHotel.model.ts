@@ -1,28 +1,42 @@
-export class MHotel {
-    private _hotelId: number;
+export class VwPersonalHotelModel {
+    private _personalRelevoId: number;
+    private _nombreCompleto: string;
+    private _dni: string;
     private _hotelNombre: string;
-    private _hotelNumHab: number;
-    private _flota: string;
-    private _estado: number;
-    private _pisos: number;
+    private _hotelId: number;
+    private _fechaIngreso: string;
+    private _fechaSalida: string;
+    private _habHotId: number;
+    private _detNumHab: string;
+    private _tipoHab: string;
 
 
     constructor() {
     }
 
-    /*constructor(hotelId: number, hotelNombre: string, hotelNumHab: number, flota: string) {
-        this._hotelId = hotelId;
-        this._hotelNombre = hotelNombre;
-        this._hotelNumHab = hotelNumHab;
-        this._flota = flota;
-    }*/
 
-    get hotelId(): number {
-        return this._hotelId;
+    get personalRelevoId(): number {
+        return this._personalRelevoId;
     }
 
-    set hotelId(value: number) {
-        this._hotelId = value;
+    set personalRelevoId(value: number) {
+        this._personalRelevoId = value;
+    }
+
+    get nombreCompleto(): string {
+        return this._nombreCompleto;
+    }
+
+    set nombreCompleto(value: string) {
+        this._nombreCompleto = value;
+    }
+
+    get dni(): string {
+        return this._dni;
+    }
+
+    set dni(value: string) {
+        this._dni = value;
     }
 
     get hotelNombre(): string {
@@ -33,35 +47,52 @@ export class MHotel {
         this._hotelNombre = value;
     }
 
-    get hotelNumHab(): number {
-        return this._hotelNumHab;
+    get habHotId(): number {
+        return this._habHotId;
     }
 
-    set hotelNumHab(value: number) {
-        this._hotelNumHab = value;
+    set habHotId(value: number) {
+        this._habHotId = value;
     }
 
-    get flota(): string {
-        return this._flota;
+    get detNumHab(): string {
+        return this._detNumHab;
     }
 
-    set flota(value: string) {
-        this._flota = value;
+    set detNumHab(value: string) {
+        this._detNumHab = value;
     }
 
-    get estado(): number {
-        return this._estado;
+    get tipoHab(): string {
+        return this._tipoHab;
     }
 
-    set estado(value: number) {
-        this._estado = value;
+    set tipoHab(value: string) {
+        this._tipoHab = value;
     }
 
-    get pisos(): number {
-        return this._pisos;
+
+    get fechaIngreso(): string {
+        return this._fechaIngreso;
     }
 
-    set pisos(value: number) {
-        this._pisos = value;
+    set fechaIngreso(value: string) {
+        this._fechaIngreso = value;
+    }
+
+    get fechaSalida(): string {
+        return this._fechaSalida;
+    }
+
+    set fechaSalida(value: string) {
+        this._fechaSalida = value;
+    }
+
+    get hotelId(): number {
+        return this._hotelId;
+    }
+
+    set hotelId(value: number) {
+        this._hotelId = value;
     }
 }

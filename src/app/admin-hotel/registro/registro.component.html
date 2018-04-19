@@ -1,30 +1,46 @@
 
 <div class="main-content">
     <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <select name="hotel" #tipo class="form-control" (change)="cambiar_tipo(tipo.value)">
+                    <option value="0">Seleccione Tipo</option>
+                    <option value="1">Salida 4am -8 am</option>
+                    <option value="2">Entrada 8am - 5 pm</option>
+                    <option value="3">Entrada 5pm - 11pm</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <input type="text" [disabled]="flag_select_tipo"  (keyup.enter)="buscar_dni()" class="form-control" name="searchString" placeholder="Buscar DNI..." [(ngModel)]="searchString">
+            </div>
+            <div class="col-md-3" *ngIf="this.isOn">
+                <div *ngIf="this.notificacion;else notif_else" class="alert alert-success" style="padding-top: 5px;padding-bottom: 5px;margin-top: 20px;">
+                    <button class="form-control" type="button" aria-hidden="true" class="close">
+                    </button>
+                    <span><b> Registro satisfactorio </b></span>
+                </div>
 
-        <button class="btn btn-primary btn-raised btn-round hidden" data-toggle="modal" data-target="#myModalDesocupar" #modalDesocuparHab>
-            Desocupar Habitacion
-        </button>
+                <ng-template #notif_else>
+                    <div class="alert alert-danger" style="padding-top: 5px;padding-bottom: 5px;margin-top: 20px;">
+                        <button class="form-control" type="button" aria-hidden="true" class="close">
+                        </button>
+                        <span><b> Error ! </b></span>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
-            <!--    <button class="btn btn-primary btn-raised btn-round" (click)="printToCart('tabla_prueba')">
-                    Imprimir Reporte
-                </button>-->
+                <!--    <button class="btn btn-primary btn-raised btn-round" (click)="printToCart('tabla_prueba')">
+                        Imprimir Reporte
+                    </button>-->
+
                 <div class="card" id="tabla_prueba">
                     <div class="card-header card-header-icon" data-background-color="blue">
                         <i class="material-icons">assignment</i>
                     </div>
                     <div class="card-content">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <h4 class="card-title">Personal actual que ocupa habitaciones </h4>
-                            </div>
-                            <div class="col-md-2">
-                                <input type="text" class="form-control" name="searchString" placeholder="Buscar DNI..." [(ngModel)]="searchString">
-                            </div>
-                        </div>
-
-
+                        <h4 class="card-title">Registro Diario, Entradas -Salidas</h4>
                         <div class="table-responsive">
                             <table class="table" style="width: 100%">
                                 <thead>
@@ -36,39 +52,39 @@
                                     <th class="text-center">{{ tableData1.headerRow[4] }}</th>
                                     <th class="text-center">{{ tableData1.headerRow[5] }}</th>
                                     <th class="text-center">{{ tableData1.headerRow[6] }}</th>
-                                    <th class="text-center">{{ tableData1.headerRow[7] }}</th>
-                                    <th class="text-center">{{ tableData1.headerRow[8] }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <!--<tr *ngFor="let row of tableData1.dataRows | ">-->
-                                    <tr *ngFor="let row of tableData1.dataRows | filter : 'dni' : searchString;">
-                                    <td class="text-center">{{row.dni}}</td>
-                                    <td>{{row.nombreCompleto}}</td>
-                                    <td class="text-center">{{row.fechaIngreso | date: 'dd/MM/yyyy'}} </td>
-                                    <td class="text-center">{{row.fechaSalida | date: 'dd/MM/yyyy'}}</td>
-                                    <td class="text-center">{{row.hotelNombre}}</td>
-                                    <td class="text-center">{{row.detNumHab}}</td>
-                                    <td class="td-actions text-right" title="Registro Diario">
-                                            <button type="button" class="btn btn-info btn-simple">
+                                <tr *ngFor="let row of tableData1.dataRows">
+                                    <td class="text-center">{{row.personalRelevoId.dni}}</td>
+                                    <td>{{row.personalRelevoId.nombreCompleto}}</td>
+                                    <td class="text-center">{{row.personalRelevoId.fechaIngreso | date: 'dd/MM/yyyy'}} </td>
+                                    <td class="text-center">{{row.personalRelevoId.fechaSalida | date: 'dd/MM/yyyy'}}</td>
+                                    <td class="td-actions text-center" title="Registro Diario">
+                                        <button type="button" class="btn btn-info btn-simple">
+                                            <i *ngIf="row.reg1==0;else reg1_else" class="material-icons">close</i>
+                                            <ng-template #reg1_else>
                                                 <i class="material-icons">done</i>
-                                            </button>
-
+                                            </ng-template>
+                                        </button>
                                     </td>
-                                        <td class="td-actions text-right" title="Registro Diario">
-
-                                            <button type="button" class="bt
-                                            n btn-success btn-simple">
+                                    <td class="td-actions text-center" title="Registro Diario">
+                                        <button type="button" class="btn btn-info btn-simple">
+                                            <i *ngIf="row.reg2==0;else reg2_else" class="material-icons">close</i>
+                                            <ng-template #reg2_else>
                                                 <i class="material-icons">done</i>
-                                            </button>
-
-                                        </td>
-                                        <td class="td-actions text-right" title="Registro Diario">
-
-                                            <button type="button" class="btn btn-danger btn-simple">
-                                                <i class="material-icons">close</i>
-                                            </button>
-                                        </td>
+                                            </ng-template>
+                                        </button>
+                                    </td>
+                                    <td class="td-actions text-center" title="Registro Diario">
+                                        <button type="button" class="btn btn-info btn-simple">
+                                            <i *ngIf="row.reg3==0;else reg3_else" class="material-icons">close</i>
+                                            <ng-template #reg3_else>
+                                                <i class="material-icons">done</i>
+                                            </ng-template>
+                                        </button>
+                                    </td>
 
                                 </tr>
                                 </tbody>
@@ -80,66 +96,6 @@
             </div>
         </div>
     </div>
-    <!-- VER DISTRIBUCION HOTEL -->
-    <div class="modal fade" id="myModalDesocupar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        <i class="material-icons">clear</i>
-                    </button>
-                    <h4 class="modal-title">Desocupar Habitación</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <label class="col-md-2 label-on-left">Nombre:</label>
-                        <div class="col-md-5"> {{this.personalHotelSelect.nombreCompleto}}
-                        </div>
-                        <label class="col-md-2 label-on-left">DNI:</label>
-                        <div class="col-md-3"> {{this.personalHotelSelect.dni}}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <label class="col-md-2 label-on-left">Hotel: </label>
-                        <div class="col-md-5">
-                            {{this.personalHotelSelect.hotelNombre}}
-                            <!-- {{this.personalSelect.habDet.hotel}}-->
-                        </div>
-                        <label class="col-md-2 label-on-left">Habitación: </label>
-                        <div class="col-md-3">
-                            {{this.personalHotelSelect.detNumHab}}
-                            <!-- {{this.personalSelect.habDet.detNumHab}}-->
-                        </div>
-                    </div>
-                    <div class="row">
-                        <label class="col-md-2 label-on-left">Ingreso: </label>
-                        <div class="col-md-5">
-                            {{this.personalHotelSelect.fechaIngreso | date: 'dd/MM/yyyy'}}
-                        </div>
-                        <label class="col-md-2 label-on-left">Salida: </label>
-                        <div class="col-md-3">
-                            {{this.personalHotelSelect.fechaSalida | date: 'dd/MM/yyyy'}}
-                        </div>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <label class="col-md-12 label-on-left">Motivo por el que desocupa habitación: </label>
-                    </div>
-                    <div class="row">
-                        <label class="col-md-1 label-on-left"></label>
-                        <textarea class="col-md-10 label-on-left" name="descripcion" rows="3" (change)="doTextareaValueChange($event)">{{this.textareaValue}}</textarea>
-                        <label class="col-md-1 label-on-left"></label>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-simple" (click)="desocupar_habitacion()">Desocupar</button>
-                    <button type="button" class="btn btn-danger btn-simple" data-dismiss="modal" #closeModalDesocupar>Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--  FIN VER DISTRIBUCION Hotel -->
-
 
     <!-- <button (click)="export()">Subir Datos!</button>-->
 </div>

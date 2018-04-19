@@ -1,6 +1,6 @@
 import {THabitacionHotelDet} from './tHabitacionHotelDet.model';
 
-export class TPersonalRelevo {
+export class TPersonalRelevoHist {
     private _personalRelevoId: number;
     private _dni: string;
     private _nombreCompleto: string;
@@ -9,23 +9,10 @@ export class TPersonalRelevo {
     private _fechaIngreso: string;
     private _fechaSalida: string;
     private _habHotId: number;
-    private _habDet: THabitacionHotelDet;
 
     constructor() {
-        /*this._habDet = new THabitacionHotelDet();*/
     }
 
-    /*constructor(personalRelevoId: number, dni: string, nombreCompleto: string, puesto: string,
-                flota: string, fechaIngreso: string, fechaSalida: string, habHotId: number) {
-        this._personalRelevoId = personalRelevoId;
-        this._dni = dni;
-        this._nombreCompleto = nombreCompleto;
-        this._puesto = puesto;
-        this._flota = flota;
-        this._fechaIngreso = fechaIngreso;
-        this._fechaSalida = fechaSalida;
-        this._habHotId = habHotId;
-    }*/
 
     get personalRelevoId(): number {
         return this._personalRelevoId;
@@ -89,13 +76,5 @@ export class TPersonalRelevo {
 
     set habHotId(value: number) {
         this._habHotId = value;
-    }
-
-    get habDet(): THabitacionHotelDet {
-        return this._habDet;
-    }
-
-    set habDet(value: THabitacionHotelDet) {
-        this._habDet = value;
     }
 }

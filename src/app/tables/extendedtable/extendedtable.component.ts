@@ -3,8 +3,8 @@ import {HotelesService} from '../../common/_services/hoteles.service';
 import {MHotel} from '../../common/models/mHotel.model';
 import { ViewChild, ElementRef} from '@angular/core';
 import swal from 'sweetalert2';
-import {TPisosHotel} from '../../common/models/tPisosHotel.model';
 import {MHotelMap} from '../../common/models/mHotelMap.model';
+import {  BlockUI, NgBlockUI } from 'ng-block-ui';
 
 declare var $: any;
 declare interface TableData {
@@ -19,6 +19,7 @@ declare interface TableData {
 })
 
 export class ExtendedTableComponent implements OnInit {
+    @BlockUI() blockUI: NgBlockUI;
     public tableData1: TableData;
     public tableData2: TableData;
     @ViewChild('closeAddExpenseModal') closeAddExpenseModal: ElementRef;
@@ -55,13 +56,16 @@ export class ExtendedTableComponent implements OnInit {
     insertar_hotel() {
         console.log(this.objhotel.hotelNombre + '/' + this.objhotel.hotelNumHab + '/' + this.objhotel.flota + '/' + this.objhotel.pisos);
         this.objhotel.hotelId = 111;
+        this.blockUI.start('Cargando...');
         this._hotelesService.insertHotel(this.objhotel).subscribe(
             (data) => {
                 console.log(data);
                 this.closeAddExpenseModal.nativeElement.click();
                 this.get_all_hoteles();
+                this.blockUI.stop();
             },
             err => {
+                this.blockUI.stop();
                 console.error(err);
             }
         );
@@ -69,14 +73,17 @@ export class ExtendedTableComponent implements OnInit {
 
     update_hotel() {
         console.log(this.objhoteleditar);
+        this.blockUI.start('Cargando...');
         this._hotelesService.updateHotel(this.objhoteleditar).subscribe(
             (data) => {
                 console.log(data);
                 this.closeeditmodal.nativeElement.click();
                 this.get_all_hoteles();
+                this.blockUI.stop();
             },
             err => {
                 console.error(err);
+                this.blockUI.stop();
             }
         );
     }
@@ -118,14 +125,17 @@ export class ExtendedTableComponent implements OnInit {
     }
 
     get_all_hoteles() {
+        this.blockUI.start('Cargando...');
         this._hotelesService.getAllHoteles().subscribe(
             (data) => {
                 console.log(data);
                 this.listHoteles = data;
                 console.log(this.listHoteles);
                 this.tableData1.dataRows = this.listHoteles;
+                this.blockUI.stop();
             },
             err => {
+                this.blockUI.stop();
                 console.error(err);
             }
         );
@@ -133,11 +143,13 @@ export class ExtendedTableComponent implements OnInit {
 
     get_detalle_hotel(id_hotel) {
         console.log(id_hotel);
+        this.blockUI.start('Cargando...');
         this._hotelesService.getHotelDetPorId(id_hotel).subscribe(
             (data) => {
                 console.log(data);
                 this.objHotelDet = data[0];
                 this.modalVerDistribucion.nativeElement.click();
+                this.blockUI.stop();
 
                /*
                 console.log(data[0].pisos);
@@ -148,6 +160,7 @@ export class ExtendedTableComponent implements OnInit {
                 this.modalVerDistribucion.nativeElement.click();*/
             },
             err => {
+                this.blockUI.stop();
                 console.error(err);
             }
         );
@@ -171,14 +184,17 @@ export class ExtendedTableComponent implements OnInit {
     }
 
     get_hotel_por_id(id_hotel) {
+        this.blockUI.start('Cargando...');
         this._hotelesService.getHotelPorId(id_hotel).subscribe(
             (data) => {
                 console.log(data[0]);
                 this.objhoteleditar = data[0];
                 console.log(this.objhoteleditar);
                 this.modaleditarhotel.nativeElement.click();
+                this.blockUI.stop();
             },
             err => {
+                this.blockUI.stop();
                 console.error(err);
             }
         );

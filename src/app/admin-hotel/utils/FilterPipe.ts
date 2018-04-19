@@ -7,13 +7,12 @@ import { Pipe, PipeTransform, Injectable } from '@angular/core';
 @Injectable()
 export class FilterPipe implements PipeTransform {
     transform(items: any[], field: string, value: string): any[] {
-        console.log(items);
-        if (!items) {
-            return [];
-        }
-        if (!field || !value) {
-            return items;
-        }
-        return items.filter(singleItem => singleItem[field].toLowerCase().includes(value.toLowerCase()));
+            if (!items) {
+                return [];
+            }
+            if (!field || !value) {
+                return items;
+            }
+            return items.filter(singleItem => singleItem.personalRelevoId[field].toLowerCase().includes(value.toLowerCase()));
     }
 }

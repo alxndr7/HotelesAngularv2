@@ -1,12 +1,39 @@
 
 <div class="main-content">
     <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card-content">
+                    <select name="hotel" #hot class="form-control" (change)="ver_personal_por_hotel(hot.value)">
+                        <option value="0">Mostrar Todo</option>
+                        <option value="1">Hotel Plaza</option>
+                        <option value="2">Hotel Dumbao</option>
+                        <option value="3">Hotel Samary</option>
+                        <option value="4">Hotel Yaureñita</option>
+                        <option value="5">Hotel Virgen De Guadalupe</option>
+                        <option value="6">Hotel Robert</option>
+                        <option value="7">Hotel Espinar</option>
+                        <option value="8">Hotel Portales</option>
+                        <option value="9">Hotel Pioneros</option>
+                        <option value="10">Hotel Mirador</option>
+                        <option value="11">Hotel Apolo</option>
+                        <option value="12">Hotel Quilla</option>
+                        <option value="13">Hotel Quirita</option>
+                        <option value="14">Hotel Don Paulino</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                    <button class="btn btn-primary btn-raised btn-round" (click)="printToCart('tabla_prueba')">
+                        Imprimir Reporte
+                    </button>
+            </div>
+        </div>
 
         <div class="row">
+
             <div class="col-md-12">
-                <button class="btn btn-primary btn-raised btn-round" (click)="printToCart('tabla_prueba')">
-                    Imprimir Reporte
-                </button>
                 <div class="card" id="tabla_prueba">
                     <div class="card-header card-header-icon" data-background-color="blue">
                         <i class="material-icons">assignment</i>
@@ -27,6 +54,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <!--<tr *ngFor="let row of tableData1.dataRows | filter : 'Flota' : searchString;">-->
                                 <tr *ngFor="let row of tableData1.dataRows">
                                     <td class="text-center">{{row.dni}}</td>
                                     <td>{{row.nombreCompleto}}</td>
@@ -42,7 +70,7 @@
 
                                     <td class="text-center">
                                         <ng-template *ngIf="row.habDet === null;else other_content">
-                                           NO
+                                            NO
                                         </ng-template>
                                         <ng-template #other_content>  {{row.habDet.detNumHab}}</ng-template>
                                     </td>
@@ -79,12 +107,12 @@
                         <label class="col-md-2 label-on-left">Hotel: </label>
                         <div class="col-md-5">
                             {{this.hotelSelect}}
-                                   <!-- {{this.personalSelect.habDet.hotel}}-->
+                            <!-- {{this.personalSelect.habDet.hotel}}-->
                         </div>
                         <label class="col-md-2 label-on-left">Habitación: </label>
                         <div class="col-md-3">
                             {{this.habitacionHotel}}
-                                   <!-- {{this.personalSelect.habDet.detNumHab}}-->
+                            <!-- {{this.personalSelect.habDet.detNumHab}}-->
                         </div>
                     </div>
 

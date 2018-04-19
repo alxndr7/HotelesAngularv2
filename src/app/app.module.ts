@@ -55,6 +55,7 @@ import {HttpService} from './common/_services/http.service';
 import {SessionStorageService} from 'ngx-webstorage';
 import {DashboardService} from './common/_services/dashboard.service';
 import {HotelesService} from './common/_services/hoteles.service';
+import { BlockUIModule } from 'ng-block-ui';
 
 @NgModule({
   exports: [
@@ -105,7 +106,8 @@ export class MaterialModule {}
         SidebarModule,
         NavbarModule,
         FooterModule,
-        FixedpluginModule
+        FixedpluginModule,
+        BlockUIModule.forRoot()
     ],
     declarations: [
         AppComponent,

@@ -25,7 +25,8 @@ export class AuthenticationService {
 
   public logIn(username: string, password: string, grant_type: string) {
     //const url = `${this.apiBaseURL}/users/login`;
-    const url = `${this.apiBaseURL}/oauth/token`;
+    //const url = `${this.apiBaseURL}/oauth/token`;
+    const url = `${this.apiBaseURL}/validar-usuario`;
 
     let urlSearchParams = new URLSearchParams();
     urlSearchParams.append('username', username);
@@ -36,6 +37,17 @@ export class AuthenticationService {
 
     return this._http.post_login(username, password, grant_type, url);
   }
+
+    public validar_login(username: string, password: string) {
+
+        const url = `${this.apiBaseURL}/validar-usuario`;
+
+        let urlSearchParams = new URLSearchParams();
+        urlSearchParams.append('usuUsuario', username);
+        urlSearchParams.append('passwUsuario', password);
+        let body = urlSearchParams.toString();
+        return this._http.post_prueba(url, body);
+    }
 
   public logout() {
     this.user = null;

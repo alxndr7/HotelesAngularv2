@@ -1,86 +1,57 @@
-import {THabitacionHotelDet} from './tHabitacionHotelDet.model';
+import {TPersonalRelevoHist} from './tPersonalRelevoHist.model';
 
-export class TPersonalRelevo {
-    private _personalRelevoId: number;
-    private _dni: string;
-    private _nombreCompleto: string;
-    private _puesto: string;
-    private _flota: string;
-    private _fechaIngreso: string;
-    private _fechaSalida: string;
+export class TRegistroDiario {
+    private _idRegDiar: number;
+    private _personalRelevoId: TPersonalRelevoHist;
+    private _reg1: string;
+    private _reg2: string;
+    private _reg3: string;
     private _habHotId: number;
-    private _habDet: THabitacionHotelDet;
+    private _fechaRegistro: string;
+
 
     constructor() {
-        /*this._habDet = new THabitacionHotelDet();*/
     }
 
-    /*constructor(personalRelevoId: number, dni: string, nombreCompleto: string, puesto: string,
-                flota: string, fechaIngreso: string, fechaSalida: string, habHotId: number) {
-        this._personalRelevoId = personalRelevoId;
-        this._dni = dni;
-        this._nombreCompleto = nombreCompleto;
-        this._puesto = puesto;
-        this._flota = flota;
-        this._fechaIngreso = fechaIngreso;
-        this._fechaSalida = fechaSalida;
-        this._habHotId = habHotId;
-    }*/
 
-    get personalRelevoId(): number {
+    get idRegDiar(): number {
+        return this._idRegDiar;
+    }
+
+    set idRegDiar(value: number) {
+        this._idRegDiar = value;
+    }
+
+    get personalRelevoId(): TPersonalRelevoHist {
         return this._personalRelevoId;
     }
 
-    set personalRelevoId(value: number) {
+    set personalRelevoId(value: TPersonalRelevoHist) {
         this._personalRelevoId = value;
     }
 
-    get dni(): string {
-        return this._dni;
+    get reg1(): string {
+        return this._reg1;
     }
 
-    set dni(value: string) {
-        this._dni = value;
+    set reg1(value: string) {
+        this._reg1 = value;
     }
 
-    get nombreCompleto(): string {
-        return this._nombreCompleto;
+    get reg2(): string {
+        return this._reg2;
     }
 
-    set nombreCompleto(value: string) {
-        this._nombreCompleto = value;
+    set reg2(value: string) {
+        this._reg2 = value;
     }
 
-    get puesto(): string {
-        return this._puesto;
+    get reg3(): string {
+        return this._reg3;
     }
 
-    set puesto(value: string) {
-        this._puesto = value;
-    }
-
-    get flota(): string {
-        return this._flota;
-    }
-
-    set flota(value: string) {
-        this._flota = value;
-    }
-
-    get fechaIngreso(): string {
-        return this._fechaIngreso;
-    }
-
-    set fechaIngreso(value: string) {
-        this._fechaIngreso = value;
-    }
-
-    get fechaSalida(): string {
-        return this._fechaSalida;
-    }
-
-    set fechaSalida(value: string) {
-        this._fechaSalida = value;
+    set reg3(value: string) {
+        this._reg3 = value;
     }
 
     get habHotId(): number {
@@ -91,11 +62,11 @@ export class TPersonalRelevo {
         this._habHotId = value;
     }
 
-    get habDet(): THabitacionHotelDet {
-        return this._habDet;
+    get fechaRegistro(): string {
+        return this._fechaRegistro;
     }
 
-    set habDet(value: THabitacionHotelDet) {
-        this._habDet = value;
+    set fechaRegistro(value: string) {
+        this._fechaRegistro = value;
     }
 }

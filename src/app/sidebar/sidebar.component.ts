@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import PerfectScrollbar from 'perfect-scrollbar';
+import {SessionStorageService} from 'ngx-webstorage';
 
 declare const $: any;
 
@@ -23,13 +24,14 @@ export interface ChildrenItems {
 //Menu Items
 
 export const ROUTES: RouteInfo[] = [
-    { path: '/auth/dashboard', title: 'Principal',  type: 'link', icontype: 'dashboard'},
-    { path: '/auth/hoteles', title: 'Mantenimiento Hoteles',  type: 'link',  icontype: 'business'},
-    { path: '/auth/relevo', title: 'Relevo',   type: 'link', icontype: 'swap_horiz' },
-    { path: '/auth/asignacion', title: 'Asignación',   type: 'link', icontype: 'assignment'},
+    { path: '/Hoteles/auth/dashboard', title: 'Principal',  type: 'link', icontype: 'dashboard'},
+    { path: '/Hoteles/auth/hoteles', title: 'Mantenimiento Hoteles',  type: 'link',  icontype: 'business'},
+    { path: '/Hoteles/auth/relevo', title: 'Relevo',   type: 'link', icontype: 'swap_horiz' },
+    { path: '/Hoteles/auth/asignacion', title: 'Asignación',   type: 'link', icontype: 'assignment'},
+    { path: '/Hoteles/auth/liberarHabitacion', title: 'Liberar Habitacion',   type: 'link', icontype: 'next_week'},
   /*  { path: '/auth/reporte', title: 'Reportessss',   type: 'link', icontype: 'web' },*/
     {
-        path: '/auth',
+        path: '/Hoteles/auth',
         title: 'Reportes',
         type: 'sub',
         icontype: 'web',
@@ -39,10 +41,36 @@ export const ROUTES: RouteInfo[] = [
         ]
     },
 
+    {
+        path: '/Hoteles/auth',
+        title: 'Administrar',
+        type: 'sub',
+        icontype: 'assignment_ind',
+        collapse: 'Administrar',
+        children: [
+            {path: 'registro', title: 'Registro Diario', ab:'RE'},
+            /*{path: 'admin-hotel', title: 'Consolidado Diario', ab:'CD'}*/
+        ]
+    },
+
     /* { path: 'maps', title: 'Maps',  icon:'location_on', class: '' },
      { path: 'notifications', title: 'Notifications',  icon:'notifications', class: '' },
      { path: 'upgrade', title: 'Upgrade to PRO',  icon:'unarchive', class: 'active-pro' },*/
-    { path: 'typography', title: 'Administrar Hotel',   type: 'link', icontype: 'assignment_ind' },
+  /*  { path: '/auth/admin-hotel', title: 'Administrar Hotel',   type: 'link', icontype: 'assignment_ind' },*/
+];
+
+export const ROUTES2: RouteInfo[] = [
+    {
+        path: '/Hoteles/auth',
+        title: 'Administrar',
+        type: 'sub',
+        icontype: 'assignment_ind',
+        collapse: 'Administrar',
+        children: [
+            {path: 'registro', title: 'Registro Diario', ab:'RE'},
+            /*{path: 'admin-hotel', title: 'Consolidado Diario', ab:'CD'}*/
+        ]
+    }
 ];
 
 /*export const ROUTES: RouteInfo[] = [{
@@ -140,6 +168,10 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
     public menuItems: any[];
 
+    constructor(public _locker: SessionStorageService) {
+
+    }
+
     isMobileMenu() {
         if ($(window).width() > 991) {
             return false;
@@ -148,7 +180,12 @@ export class SidebarComponent implements OnInit {
     };
 
     ngOnInit() {
-        this.menuItems = ROUTES.filter(menuItem => menuItem);
+        const user = this._locker.retrieve('user');
+        console.log(user['rolUsuario']);
+        if (user['rolUsuario'] === 'admin')
+            this.menuItems = ROUTES.filter(menuItem => menuItem);
+        if (user['rolUsuario'] === 'hotel')
+            this.menuItems = ROUTES2.filter(menuItem => menuItem);
     }
     updatePS(): void  {
         if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
