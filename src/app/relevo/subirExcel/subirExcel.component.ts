@@ -129,10 +129,9 @@ export class SubirExcelComponent implements OnInit {
                     console.error(err);
                 }
             );
-            this.personalRelevo = null;
-            this.tableData1.dataRows = this.personalRelevo;
-
         }
+        this.personalRelevo = null;
+        this.tableData1.dataRows = this.personalRelevo;
         console.log('inserts: ' + cont);
     }
 
