@@ -10,6 +10,7 @@ export class TPersonalRelevo {
     private _fechaSalida: string;
     private _habHotId: number;
     private _habDet: THabitacionHotelDet;
+    private _orden: number;
 
     constructor() {
         /*this._habDet = new THabitacionHotelDet();*/
@@ -97,5 +98,13 @@ export class TPersonalRelevo {
 
     set habDet(value: THabitacionHotelDet) {
         this._habDet = value;
+    }
+
+    get orden(): number {
+        return this._orden;
+    }
+
+    set orden(value: number) {
+        this._orden = value;
     }
 }

@@ -71,7 +71,7 @@ export class SubirExcelComponent implements OnInit {
     ngOnInit() {
 
         this.tableData1 = {
-            headerRow: [ 'DNI', 'Nombre Completo', 'Puesto', 'Flota', 'Fecha Ingreso', 'Fecha Salida'],
+            headerRow: [ '#', 'DNI', 'Nombre Completo', 'Puesto', 'Flota', 'Fecha Ingreso', 'Fecha Salida'],
             dataRows:  this.personalRelevo
         };
 

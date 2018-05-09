@@ -140,6 +140,7 @@ export class HotelesService {
         urlSearchParams.append('flota', personal.flota);
         urlSearchParams.append('fechaIngreso', personal.fechaIngreso);
         urlSearchParams.append('fechaSalida', personal.fechaSalida);
+        urlSearchParams.append('orden', String(personal.orden));
         const body = urlSearchParams.toString();
 
         return this._http.post_prueba(url, body);
@@ -154,6 +155,7 @@ export class HotelesService {
         urlSearchParams.append('flota', personal.flota);
         urlSearchParams.append('fechaIngreso', personal.fechaIngreso);
         urlSearchParams.append('fechaSalida', personal.fechaSalida);
+        urlSearchParams.append('orden', String(1000));
         const body = urlSearchParams.toString();
 
         return this._http.post_prueba(url, body);

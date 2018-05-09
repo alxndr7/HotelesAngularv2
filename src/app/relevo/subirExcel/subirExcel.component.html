@@ -27,10 +27,12 @@
                                     <th>{{ tableData1.headerRow[3] }}</th>
                                     <th>{{ tableData1.headerRow[4] }}</th>
                                     <th>{{ tableData1.headerRow[5] }}</th>
+                                    <th>{{ tableData1.headerRow[6] }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr *ngFor="let row of tableData1.dataRows">
+                                    <td class="text-center">{{row.orden}}</td>
                                     <td class="text-center">{{row.dni}}</td>
                                     <td>{{row.nombreCompleto}}</td>
                                     <td>{{row.puesto}}</td>
