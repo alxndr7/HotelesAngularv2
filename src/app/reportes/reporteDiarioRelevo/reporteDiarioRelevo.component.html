@@ -34,46 +34,46 @@
         <div class="row">
 
             <div class="col-md-12">
-                <div class="card" id="tabla_prueba">
+                <div class="card">
                     <div class="card-header card-header-icon" data-background-color="blue">
                         <i class="material-icons">assignment</i>
                     </div>
-                    <div class="card-content">
-                        <h4 class="card-title">Asignación: Habitación - Personal</h4>
+                    <div class="card-content"id="tabla_prueba">
+                        <h4 class="card-title" style="text-align: center"><strong>PERSONAL RELEVO  {{this.dateNow | date:'dd-MM-yyyy'}} </strong></h4>
                         <div class="table-responsive">
                             <table class="table" style="width: 100%">
                                 <thead>
-                                <tr>
-                                    <th class="text-center">{{ tableData1.headerRow[0] }}</th>
-                                    <th class="text-center">{{ tableData1.headerRow[1] }}</th>
-                                    <th class="text-center">{{ tableData1.headerRow[2] }}</th>
-                                    <th class="text-center">{{ tableData1.headerRow[3] }}</th>
-                                    <th class="text-center">{{ tableData1.headerRow[4] }}</th>
-                                    <th class="text-center">{{ tableData1.headerRow[5] }}</th>
-                                    <th class="text-center">{{ tableData1.headerRow[6] }}</th>
+                                <tr id="tr_prueba">
+                                    <th style="text-align: center">{{ tableData1.headerRow[0] }}</th>
+                                    <th style="text-align: center">{{ tableData1.headerRow[1] }}</th>
+                                    <th style="text-align: center">{{ tableData1.headerRow[2] }}</th>
+                                    <th style="text-align: center">{{ tableData1.headerRow[3] }}</th>
+                                    <th style="text-align: center">{{ tableData1.headerRow[4] }}</th>
+                                    <th style="text-align: center">{{ tableData1.headerRow[5] }}</th>
+                                    <th style="text-align: center">{{ tableData1.headerRow[6] }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <!--<tr *ngFor="let row of tableData1.dataRows | filter : 'Flota' : searchString;">-->
                                 <tr *ngFor="let row of tableData1.dataRows">
-                                    <td class="text-center">{{row.dni}}</td>
+                                    <td style="text-align: center">{{row.puesto}}</td>
                                     <td>{{row.nombreCompleto}}</td>
-                                    <td class="text-center">{{row.flota}}</td>
-                                    <td class="text-center">{{row.fechaIngreso | date: 'dd/MM/yyyy'}} </td>
-                                    <td class="text-center">{{row.fechaSalida | date: 'dd/MM/yyyy'}}</td>
-                                    <td>
+                                    <td style="text-align: center">{{row.dni}}</td>
+                                    <td style="text-align: center">
                                         <ng-template *ngIf="row.habDet === null;else other_content2">
                                             NO
                                         </ng-template>
                                         <ng-template #other_content2>  {{row.habDet.hotel.hotelNombre}}</ng-template>
                                     </td>
-
-                                    <td class="text-center">
+                                    <td style="text-align: center">
                                         <ng-template *ngIf="row.habDet === null;else other_content">
                                             NO
                                         </ng-template>
                                         <ng-template #other_content>  {{row.habDet.detNumHab}}</ng-template>
                                     </td>
+                                    <td style="text-align: center">{{row.fechaIngreso | date: 'dd/MM/yyyy'}} </td>
+                                    <td style="text-align: center">{{row.fechaSalida | date: 'dd/MM/yyyy'}}</td>
+
                                 </tr>
                                 </tbody>
                             </table>

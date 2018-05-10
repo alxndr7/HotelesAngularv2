@@ -23,6 +23,7 @@ export class DesocuparHabitacionComponent implements OnInit {
     @ViewChild('modalDesocuparHab') modalDesocuparHab: ElementRef;
     @ViewChild('closeModalDesocupar') closeModalDesocupar: ElementRef;
     textareaValue: string;
+    public searchString: string;
 
 
     constructor(public _hotelesService: HotelesService) {

@@ -52,15 +52,19 @@
                                     <th class="text-center">{{ tableData1.headerRow[4] }}</th>
                                     <th class="text-center">{{ tableData1.headerRow[5] }}</th>
                                     <th class="text-center">{{ tableData1.headerRow[6] }}</th>
+                                    <th class="text-center">{{ tableData1.headerRow[7] }}</th>
+                                    <th class="text-center">{{ tableData1.headerRow[8] }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <!--<tr *ngFor="let row of tableData1.dataRows | ">-->
                                 <tr *ngFor="let row of tableData1.dataRows">
+                                    <td class="text-center">{{row.personalRelevoId.puesto}}</td>
                                     <td class="text-center">{{row.personalRelevoId.dni}}</td>
                                     <td>{{row.personalRelevoId.nombreCompleto}}</td>
                                     <td class="text-center">{{row.personalRelevoId.fechaIngreso | date: 'dd/MM/yyyy'}} </td>
                                     <td class="text-center">{{row.personalRelevoId.fechaSalida | date: 'dd/MM/yyyy'}}</td>
+                                    <td class="text-center">{{row.personalRelevoId.habDet.detNumHab}}</td>
                                     <td class="td-actions text-center" title="Registro Diario">
                                         <button type="button" class="btn btn-info btn-simple">
                                             <i *ngIf="row.reg1==0;else reg1_else" class="material-icons">close</i>

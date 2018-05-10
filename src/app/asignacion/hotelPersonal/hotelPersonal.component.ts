@@ -5,6 +5,7 @@ import {MHotel} from '../../common/models/mHotel.model';
 import {MHotelMap} from '../../common/models/mHotelMap.model';
 import {THabitacionHotelDet} from '../../common/models/tHabitacionHotelDet.model';
 import {  BlockUI, NgBlockUI } from 'ng-block-ui';
+import swal from 'sweetalert2';
 declare var $: any;
 declare interface TableData {
     headerRow: string[];
@@ -189,5 +190,36 @@ export class HotelPersonalComponent implements OnInit {
             }
         );
     }
+
+    consolidar_asignacion_diaria() {
+        let that = this;
+        swal({
+            title: '¿Desea Continuar?',
+            text: 'Al consolidar el registro diario también se estará enviando esta información a los respectivos hoteles.',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonClass: 'btn btn-success',
+            cancelButtonClass: 'btn btn-danger',
+            cancelButtonText: 'No',
+            confirmButtonText: 'Si, deseo continuar!',
+            buttonsStyling: false
+        }).then(function(result) {
+            console.log(result);
+            if (result) {
+                that._hotelesService.personalDiarioHisto().subscribe(
+                    (data) => {
+                        console.log(data);
+                        that.get_relevo_personal();
+                        that.blockUI.stop();
+                    },
+                    err => {
+                        console.error(err);
+                        that.blockUI.stop();
+                    }
+                );
+            }
+        }).catch(swal.noop);
+    }
+
 
 }

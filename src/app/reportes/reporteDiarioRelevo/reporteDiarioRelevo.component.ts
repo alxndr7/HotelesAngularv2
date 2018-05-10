@@ -34,7 +34,7 @@ export class ReporteDiarioRelevoComponent implements OnInit {
     idHabHot: number;
     personalSelect: TPersonalRelevo;
     habSelect:THabitacionHotelDet;
-
+    dateNow: Date;
     showAsignar: boolean;
 
     constructor(public _hotelesService: HotelesService) {
@@ -46,12 +46,13 @@ export class ReporteDiarioRelevoComponent implements OnInit {
         this.personalSelect.habDet = new THabitacionHotelDet();
         this.personalSelect.habDet.hotel = new MHotel();
         this.showAsignar = true;
+        this.dateNow = new Date();
     }
 
     ngOnInit() {
 
         this.tableData1 = {
-            headerRow: [ 'DNI', 'Nombre Completo', 'Flota', 'Fecha Inicio', 'Fecha Salida','Hotel', 'Habitación'],
+            headerRow: [ 'CARGO', 'APELLIDOS Y NOMBRES', 'DNI', 'HOTEL', 'HABITACIÓN', 'F. INICIO', 'F. SALIDA'],
             dataRows:  this.personalRelevo
         };
 
@@ -132,9 +133,22 @@ export class ReporteDiarioRelevoComponent implements OnInit {
     printToCart(printSectionId: string){
         let popupWinindow;
         let innerContents = document.getElementById(printSectionId).innerHTML;
-        popupWinindow = window.open('', '_blank', 'width=600,height=700,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no');
+        popupWinindow = window.open('', '_blank', 'width=600,height=700,scrollbars=no,menubar=no,' +
+            'toolbar=no,location=no,status=no,titlebar=no');
         popupWinindow.document.open();
-        popupWinindow.document.write('<html><head><link rel="stylesheet" type="text/css" href="style.css" /></head><body onload="window.print()">' + innerContents + '</html>');
+        popupWinindow.document.write('<html><head><title></title>');
+        popupWinindow.document.write('<style>' +
+            'tr th {\n' +
+            '    border-bottom:1pt solid black;\n' +
+            '}' +
+            'tr td {\n' +
+            '    border-bottom:1pt solid black;\n' +
+            '}' +
+            '</style>'
+        )
+        popupWinindow.document.write('</head><body onload="window.print();">');
+        popupWinindow.document.write(innerContents);
+        popupWinindow.document.write('</body></html>');
         popupWinindow.document.close();
     }
 

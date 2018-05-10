@@ -37,7 +37,7 @@ export class RegistroComponent implements OnInit {
     ngOnInit() {
         const user = this._locker.retrieve('user');
         this.tableData1 = {
-            headerRow: [ 'DNI', 'Nombre Completo', 'Fecha Inicio', 'Fecha Salida', 'M', 'T', 'N'],
+            headerRow: ['Puesto', 'DNI', 'Nombre Completo', 'Fecha Inicio', 'Fecha Salida', 'Habitacion','M', 'T', 'N'],
             dataRows:  this.registroDiarioHotel
         };
 

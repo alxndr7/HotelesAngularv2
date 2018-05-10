@@ -131,6 +131,11 @@ export class HotelesService {
         return this._http.post_prueba(url, body);
     }
 
+    public personalDiarioHisto() {
+        const url = `${this.apiBaseURL}/personal_diario_histo`;
+        return this._http.get_prueba(url);
+    }
+
     public insertPersonalRelevo(personal: TPersonalRelevo) {
         const url = `${this.apiBaseURL}/insertPersonalRelevo`;
         const urlSearchParams = new URLSearchParams();

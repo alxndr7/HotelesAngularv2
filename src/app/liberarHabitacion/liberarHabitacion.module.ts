@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../app.module';
 import {LiberarHabitacionRoutes} from './liberarHabitacion.routing';
 import {DesocuparHabitacionComponent} from './desocuparHabitacion/desocuparHabitacion.component';
+import {FilterPipe} from './utils/FilterPipe';
+
 
 
 
@@ -16,8 +18,12 @@ import {DesocuparHabitacionComponent} from './desocuparHabitacion/desocuparHabit
     MaterialModule
   ],
   declarations: [
-      DesocuparHabitacionComponent
-  ]
+      DesocuparHabitacionComponent,
+      FilterPipe
+  ],
+    exports: [
+        FilterPipe
+    ]
 })
 
 export class LiberarHabitacionModule {}
